@@ -54,11 +54,11 @@ Restage your application to use the new Service Registry bindings.
 cf restage backend
 ```
 
-## 5.0 - Verify Registration of both the Front End and Back End application in the Service Discovery Service
+## 5.0 - Verify Registration of Back End application in the Service Discovery Service
 
 In PCF AppsMan .. select your Service Discovery Service and click on "manage"
 
-You should see 2 registed Apps -- underneath *UP*, you will be able to see Service Discovery destinations -- one should be IP based (direct), and the other one should be route based.
+You should see 1 registed App (backend-service) -- underneath *UP*, you will be able to see Service Discovery destinations.
 
 ## 6.0 - Add a Network Policy that will enable App to App communication (skipping the Go-Router)
 
