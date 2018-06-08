@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.frontend;
 
 
 import org.slf4j.Logger;
@@ -38,7 +38,7 @@ public class SampleController {
 
     @RequestMapping("call")
     public String callBackend(){
-        return rest.getForObject("http://BACKEND/backend", String.class);
+        return rest.getForObject("http://backend-service/call", String.class);
     }
 
     @RequestMapping("services")
@@ -52,12 +52,12 @@ public class SampleController {
 
         for (String service: services) {
 
-            List<ServiceInstance> serviceInstances = discoveryClient.getInstances("BACKEND");
+            List<ServiceInstance> serviceInstances = discoveryClient.getInstances("backend-service");
 
             output.append("Service found " + service + " with " + serviceInstances.size() + " instances <br>");
 
             for (ServiceInstance serviceInstance: serviceInstances) {
-                output.append("service host " + serviceInstance.getHost() + "<br>");
+                output.append("Service host " + serviceInstance.getHost() + "<br>");
 
             }
 

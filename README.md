@@ -1,6 +1,6 @@
 # Service Discovery (Eureka) on PCF / PWS Example with backend service hidden (no-route) and using container to continer networking
 
-## 1.0 Build and Deploy the Front End Application 
+## 1.0 - Build and Deploy the Front End Application 
 
 ```sh
 cd fronend
@@ -10,7 +10,7 @@ cf push frontend -p build/libs/frontend-0.0.1-SNAPSHOT.jar --random-route
 
 Note the randomly generated route.
 
-## 2.0 Create and Bind a Service Discovery Service 
+## 2.0 - Create and Bind a Service Discovery Service 
 
 To view available services:
 ```sh
@@ -33,7 +33,7 @@ Restage your application to use the new Service Registry bindings.
 cf restage frontend
 ```
 
-## 3.0 Build and deploy the Back End Application
+## 3.0 - Build and deploy the Back End Application
 
 ```sh
 cd ..
@@ -42,7 +42,7 @@ gradle build
 cf push backend -p build/libs/backend-0.0.1-SNAPSHOT.jar --no-route
 ```
 
-## 4.0 Bind the backend to the Service Discovery Service 
+## 4.0 - Bind the backend to the Service Discovery Service 
 
 ```sh
 cf bind-service backend my-service-registry
@@ -54,13 +54,13 @@ Restage your application to use the new Service Registry bindings.
 cf restage backend
 ```
 
-## 5.0 Verify Registration of both the Front End and Back End application in the Service Discovery Service
+## 5.0 - Verify Registration of both the Front End and Back End application in the Service Discovery Service
 
 In PCF AppsMan .. select your Service Discovery Service and click on "manage"
 
 You should see 2 registed Apps -- underneath *UP*, you will be able to see Service Discovery destinations -- one should be IP based (direct), and the other one should be route based.
 
-## 6.0 Add a Network Policy that will enable App to App communication (skipping the Go-Router)
+## 6.0 - Add a Network Policy that will enable App to App communication (skipping the Go-Router)
 
 With PWS (Pivotal Web Services) users will have access to do this. For other PCF instances, if you are unable to add such network policy, contact your PCF Ops team to enable access and container-to-container networking. 
 
@@ -68,7 +68,7 @@ With PWS (Pivotal Web Services) users will have access to do this. For other PCF
 cf add-network-policy frontend --destination-app backend
 ```
 
-## 7.0 Test your Frontend App for Backend connectivity. 
+## 7.0 - Test your Frontend App for Backend connectivity 
 
 The */call* endpoint will call the Backend Service (it's backend endpoint) and return it's message.
 
@@ -98,3 +98,11 @@ spring.cloud.services.registrationMethod=direct
 spring.cloud.service-registry.auto-registration.enabled=false 
 ```
 In our case, no service requires lookups to frontend, so we can disable it's registration from Eureka to reduce noise.
+
+7. Set the spring.application.name property in your application properties to change the service name being registered in Eureka.
+
+```properties
+spring.application.name=backend-service
+```
+
+8. Note usage of VCAP variable injection in the Backend Controller to show which PCF Application instance and space is being hit.
