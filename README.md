@@ -3,7 +3,7 @@
 ## 1.0 - Build and Deploy the Front End Application 
 
 ```sh
-cd fronend
+cd frontend
 gradle build
 cf push frontend -p build/libs/frontend-0.0.1-SNAPSHOT.jar --random-route
 ```
