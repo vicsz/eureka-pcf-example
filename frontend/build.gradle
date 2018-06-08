@@ -24,18 +24,20 @@ repositories {
 
 
 ext {
+	springCloudServicesVersion = '1.6.3.RELEASE'
 	springCloudVersion = 'Edgware.SR3'
 }
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.cloud:spring-cloud-starter-eureka')
+	compile('io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 dependencyManagement {
 	imports {
+		mavenBom "io.pivotal.spring.cloud:spring-cloud-services-dependencies:${springCloudServicesVersion}"
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
 }
